@@ -17,6 +17,10 @@ steps:
     feedsToUse: 'select'
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'test'
+    projects: 'BlazorPasswordGeneratorTest/BlazorPasswordGeneratorTest.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'publish'
     publishWebProjects: true
     arguments: '-c Release -o $(Build.SourcesDirectory)/out'
