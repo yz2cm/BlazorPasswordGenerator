@@ -15,23 +15,28 @@ steps:
     command: 'restore'
     projects: 'BlazorPasswordGenerator.sln'
     feedsToUse: 'select'
+  displayName: 'Restore'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: 'BlazorPasswordGeneratorTest/BlazorPasswordGeneratorTest.csproj'
+  displayName: 'Test'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
     arguments: '-c Release -o $(Build.SourcesDirectory)/out'
+  displayName: 'Publish'
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/out'
     Contents: 'BlazorPasswordGenerator.zip'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
+  displayName: 'Copy files'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  displayName: 'Publish build artifacts'
