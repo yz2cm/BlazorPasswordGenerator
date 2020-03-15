@@ -19,8 +19,9 @@ namespace BlazorPasswordGeneratorTest
             string usableChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var passGen = new RandomPassword(32, usableChars);
 
-            passGen = passGen.CharacterShuoldHaveOverThreeKinds();            
+            passGen = passGen.CharacterShuoldHaveOverThreeKinds();
 
+            this.logger.WriteLine("Environment.OSVersion :" + Environment.OSVersion.ToString());
             await foreach(var x in passGen.GeneratePasswordAsync(100))
             {
                 this.logger.WriteLine(x.Password);
