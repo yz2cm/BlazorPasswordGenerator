@@ -6,8 +6,17 @@
 trigger:
 - master
 
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-latest'
+    mac:
+      imageName: 'macos-latest'
+    windows:
+      imageName: 'windows-latest'
+
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage:$(imageName)
 
 steps:
 - task: DotNetCoreCLI@2
@@ -20,6 +29,7 @@ steps:
   inputs:
     command: 'test'
     projects: 'BlazorPasswordGeneratorTest/BlazorPasswordGeneratorTest.csproj'
+    arguments: '--collect "Code coverage"'
   displayName: 'Test'
 - task: DotNetCoreCLI@2
   inputs:
